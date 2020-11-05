@@ -120,12 +120,21 @@ function updateEmployeeManager(employeeId, managerId) {
 ////////////////////////////
 // DELETE OPERATIONS
 ////////////////////////////
+function removeEmployee(employeeId) {
+  return db.query('DELETE FROM employee WHERE id=?', [employeeId]);
+}
 
+function removeRole(roleId) {
+  return db.query('DELETE FROM role WHERE id=?', [roleId]);
+}
+
+function removeDepartment(departmentId) {
+  return db.query('DELETE FROM department WHERE id=?', [departmentId]);
+}
 
 ////////////////////////////
 // DB OPERATIONS
 ////////////////////////////
-
 function closeORM() {
   return db.close()
 }
@@ -145,5 +154,8 @@ module.exports = {
   addDepartment,
   updateEmployeeRole,
   updateEmployeeManager,
+  removeEmployee,
+  removeRole,
+  removeDepartment,
   closeORM
 }
