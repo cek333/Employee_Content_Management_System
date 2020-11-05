@@ -89,11 +89,23 @@ function getBudgetByDepartment() {
                     GROUP BY department
   `);
 }
+
 ////////////////////////////
 // INSERT OPERATIONS
 ////////////////////////////
+function addEmployee(firstName, lastName, roleId, managerId) {
+  return db.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)',
+    [firstName, lastName, roleId, managerId]);
+}
 
+function addRole(roleName, salary, departmentId) {
+  return db.query('INSERT INTO role (title, salary, department_id) VALUES (?,?,?)',
+    [roleName, salary, departmentId]);
+}
 
+function addDepartment(departmentName) {
+  return db.query('INSERT INTO department (name) VALUES (?)', [departmentName]);
+}
 ////////////////////////////
 // UPDATE OPERATIONS
 ////////////////////////////
