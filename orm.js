@@ -109,7 +109,13 @@ function addDepartment(departmentName) {
 ////////////////////////////
 // UPDATE OPERATIONS
 ////////////////////////////
+function updateEmployeeRole(employeeId, newRoleId) {
+  return db.query('UPDATE employee SET role_id=? WHERE id=?', [newRoleId, employeeId]);
+}
 
+function updateEmployeeManager(employeeId, managerId) {
+  return db.query('UPDATE employee SET manager_id=? WHERE id=?', [managerId, employeeId]);
+}
 
 ////////////////////////////
 // DELETE OPERATIONS
@@ -125,6 +131,19 @@ function closeORM() {
 }
 
 module.exports = {
-
+  getEmployeesRaw,
+  getEmployeesFormatted,
+  getEmployeesFormattedByDepartment,
+  getEmployeesFormattedByManager,
+  getRolesRaw,
+  getRolesFormatted,
+  getDepartmentsRaw,
+  getDepartmentsFormatted,
+  getBudgetByDepartment,
+  addEmployee,
+  addRole,
+  addDepartment,
+  updateEmployeeRole,
+  updateEmployeeManager,
   closeORM
 }
