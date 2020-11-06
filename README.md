@@ -34,6 +34,7 @@ You'll be prompted to select one of the following operations.
 * Add Department
 * Remove Department
 * View Total Budget by Department
+* Exit
 
 ![screenshot of application](readme/screenshot_of_employee_cms.png)
 
