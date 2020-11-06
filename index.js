@@ -36,22 +36,22 @@ function genManagerList(excludeId='') {
 function doAddEmployeePrompts() {
   const questions = [
     {
-      name: 'first_name',
+      name: 'firstName',
       message: "Enter employee's first name:"
     },
     {
-      name: 'last_name',
+      name: 'lastName',
       message: "Enter employee's last name:"
     },
     {
       type: 'list',
-      name: 'role_id',
+      name: 'roleId',
       message: "Select the employee's role:",
       choices: roleList
     },
     {
       type: 'list',
-      name: 'manager_id',
+      name: 'managerId',
       message: "Select the employee's manager:",
       choices: function(answers) {
         genManagerList();
@@ -66,7 +66,7 @@ function doRemoveEmployeePrompts() {
   const questions = [
     {
       type: 'list',
-      name: 'employee_id',
+      name: 'employeeId',
       message: 'Select employee to remove:',
       choices: employeeList
     }
@@ -78,13 +78,13 @@ function doUpdateEmployeeRolePrompts() {
   const questions = [
     {
       type: 'list',
-      name: 'employee_id',
+      name: 'employeeId',
       message: 'Select employee to update:',
       choices: employeeList
     },
     {
       type: 'list',
-      name: 'role_id',
+      name: 'roleId',
       message: 'Select role:',
       choices: roleList
     }
@@ -96,17 +96,17 @@ function doUpdateEmployeeManagerPrompts() {
   const questions = [
     {
       type: 'list',
-      name: 'employee_id',
+      name: 'employeeId',
       message: 'Select employee to update:',
       choices: employeeList
     },
     {
       type: 'list',
-      name: 'manager_id',
+      name: 'managerId',
       message: "Select employee's manager:",
       choices: function(answers) {
         // console.log('[emp]', answers);
-        genManagerList(answers.employee_id);
+        genManagerList(answers.employeeId);
         return managerList;
       }
     }
@@ -127,7 +127,7 @@ function doAddRolePrompts() {
     },
     {
       type: 'list',
-      name: 'department_id',
+      name: 'departmentId',
       message: 'Select department:',
       choices: departmentList
     }
@@ -139,7 +139,7 @@ function doRemoveRolePrompts() {
   const questions = [
     {
       type: 'list',
-      name: 'role_id',
+      name: 'roleId',
       message: 'Select role to remove:',
       choices: roleList
     }
@@ -151,7 +151,7 @@ function doAddDepartmentPrompts() {
   const questions = [
     {
       name: 'name',
-      message: 'Enter new department'
+      message: 'Enter new department:'
     }
   ];
   return inquirer.prompt(questions);
@@ -161,7 +161,7 @@ function doRemoveDepartmentPrompts() {
   const questions = [
     {
       type: 'list',
-      name: 'department_id',
+      name: 'departmentId',
       message: 'Select department to remove:',
       choices: departmentList
     }
@@ -206,15 +206,28 @@ function doRemoveDepartmentPrompts() {
         break;
       case 'Add Employee':
         response = await doAddEmployeePrompts();
+        result = await orm.addEmployee(response.firstName, response.lastName, 
+                                   response.roleId, response.managerId);
+        console.log("*** Employee Added! ***");
+        // Update list of employees
+        genEmployeeList();
         break;
       case 'Remove Employee':
         response = await doRemoveEmployeePrompts();
+        result = await orm.removeEmployee(response.employeeId);
+        console.log("*** Employee Removed! ***");
+        // Update list of employees
+        genEmployeeList();        
         break;
       case 'Update Employee Role':
         response = await doUpdateEmployeeRolePrompts();
+        result = await orm.updateEmployeeRole(response.employeeId, response.roleId);
+        console.log("*** Employee's Role Updated! ***");
         break;
       case 'Update Employee Manager':
         response = await doUpdateEmployeeManagerPrompts();
+        result = await orm.updateEmployeeManager(response.employeeId, response.managerId); 
+        console.log("*** Employee's Manager Updated! ***");
         break;
       case 'View All Roles':
         result = await orm.getRolesFormatted();
@@ -222,9 +235,17 @@ function doRemoveDepartmentPrompts() {
         break;
       case 'Add Role':
         response = await doAddRolePrompts();
+        result = await orm.addRole(response.title, response.salary, response.departmentId);
+        console.log("*** Role Added! ***");
+        // Update list of roles
+        genRoleList();              
         break;
       case 'Remove Role':
         response = await doRemoveRolePrompts();
+        result = await orm.removeRole(response.roleId);
+        console.log("*** Role Removed! ***");
+        // Update list of roles
+        genRoleList();          
         break;
       case 'View All Departments':
         result = await orm.getDepartmentsFormatted();
@@ -232,9 +253,17 @@ function doRemoveDepartmentPrompts() {
         break;
       case 'Add Department':
         response = await doAddDepartmentPrompts();
+        result = await orm.addDepartment(response.name);
+        console.log("*** Department Added! ***");
+        // Update list of departments
+        genDepartmentList();     
         break;
       case 'Remove Department':
         response = await doRemoveDepartmentPrompts();
+        result = await orm.removeDepartment(response.departmentId);
+        console.log("*** Department Removed! ***");
+        // Update list of departments
+        genDepartmentList();             
         break;
       case 'View Total Budget by Department':
         result = await  orm.getBudgetByDepartment();
