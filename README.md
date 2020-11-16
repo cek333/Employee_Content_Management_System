@@ -68,3 +68,5 @@ The video walks through the following sequences:
   * Remove Department -> View All Departments
   * View Total Budget by Department
   * Exit 
+
+  (Set the video resolution to 720p for optimal viewing.)
