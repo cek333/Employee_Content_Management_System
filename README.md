@@ -19,10 +19,17 @@ Create and set the environment variable `SQL_PSWD` to your database password.
 
 Type `node index.js` to run the application.
 
-You'll be prompted to select one of the following operations.
+You'll be prompted to select from a list of options.
+
+![screenshot of application](readme/screenshot_of_employee_cms.png)
+
+A full list of the options are shown below. For a couple of the options the expected output is shown (based on the seed.sql data).
 * View All Employees
+
+  ![view employees output (based on seed.sql data)](readme/view_employees_output_using_seed_data.png)
+
 * View All Employees by Department
-* View All Employees by Manager
+* View Employees by Manager
 * Add Employee
 * Remove Employee
 * Update Employee Role
@@ -34,8 +41,30 @@ You'll be prompted to select one of the following operations.
 * Add Department
 * Remove Department
 * View Total Budget by Department
+
+  ![view budget output (based on seed.sql data)](readme/view_budget_output_using_seed_data.png)
+
 * Exit
 
-![screenshot of application](readme/screenshot_of_employee_cms.png)
+### Video Walkthrough
 
-A video of the application in action can be viewed [here]().
+A video of the application in action can be viewed [here](https://drive.google.com/file/d/1uU53q28VY0Gl204tbq3T0coLt4SyRIa_/view?usp=sharing).
+The video walks through the following sequences:
+* In MySQL Workbench:
+  * Create the database in MySQL Workbench using docs/schema.sql -> Populate the database using docs/seed.sql -> SELECT * FROM employee -> SELECT * FROM role -> SELECT * FROM departments
+* In the Employee Content Management System application:
+  * View All Employees
+  * View All Employees by Department
+  * View Employees by Manager
+  * Add Employee -> View All Employees
+  * Update Employee Role -> View All Employees
+  * Update Employee Manager -> View All Employees -> View Employees by Manager
+  * Remove Employee -> View All Employees
+  * View All Roles
+  * Add Role -> View All Roles
+  * Remove Role -> View All Roles
+  * View All Departments
+  * Add Department -> View All Departments
+  * Remove Department -> View All Departments
+  * View Total Budget by Department
+  * Exit 
