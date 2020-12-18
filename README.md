@@ -11,7 +11,9 @@ By performing `LEFT JOIN`s on the tables, the data can be combined to provide me
 ## Usage
 The application requires a local mysql server. 
 
-schema.sql and seed.sql in the docs/ folder can be used to create and seed the database.
+![screenshot of seeding the database](readme/database_setup.png)
+
+Use schema.sql followed by seed.sql to seed your local database. Both files can be found in the docs/ folder.
 
 Run `npm install` to install the required packages. 
 
